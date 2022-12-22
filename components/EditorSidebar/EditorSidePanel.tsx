@@ -5,6 +5,7 @@ import Tab from '@mui/material/Tab'
 import Stack from '@mui/material/Stack'
 import Icon from '@mui/material/Icon'
 import ImagePanel from './ImagesPanel'
+import SharePanel from './SharePanel'
 
 type TabPanelProps = {
   children?: React.ReactNode
@@ -67,7 +68,7 @@ const EditorSidePanel = () => {
           Layout
         </TabPanel>
         <TabPanel value={value} index={2}>
-          Share
+          <SharePanel />
         </TabPanel>
       </Box>
     </Stack>
