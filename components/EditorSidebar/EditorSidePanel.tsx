@@ -4,6 +4,7 @@ import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 import Stack from '@mui/material/Stack'
 import Icon from '@mui/material/Icon'
+import ImagePanel from './ImagesPanel'
 
 type TabPanelProps = {
   children?: React.ReactNode
@@ -54,16 +55,19 @@ const EditorSidePanel = () => {
             label="Images"
             {...a11yProps(0)}
           />
-          <Tab icon={<Icon color="primary">add_circle</Icon>} label="Share" {...a11yProps(1)} />
           <Tab icon={<Icon color="primary">add_circle</Icon>} label="Layout" {...a11yProps(1)} />
+          <Tab icon={<Icon color="primary">add_circle</Icon>} label="Share" {...a11yProps(2)} />
         </Tabs>
       </Box>
       <Box sx={{ flexGrow: 1 }}>
         <TabPanel value={value} index={0}>
-          Images
+          <ImagePanel />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          Item Two
+          Layout
+        </TabPanel>
+        <TabPanel value={value} index={2}>
+          Share
         </TabPanel>
       </Box>
     </Stack>
