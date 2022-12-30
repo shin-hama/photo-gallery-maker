@@ -14,8 +14,8 @@ export default function Home() {
           <EditorSidePanel />
         </Box>
         <Box component="main" flexGrow={1}>
-          <Box height="60%" p={1} style={{ border: 'grey 5px' }}>
-            <iframe src="/sample" width="100%" height="100%"></iframe>
+          <Box height="100%" p={1} style={{ border: 'grey 5px' }}>
+            <iframe src="/gallery" width="100%" height="100%"></iframe>
           </Box>
         </Box>
       </Stack>
