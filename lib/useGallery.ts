@@ -9,14 +9,13 @@ import {
   updateDoc,
 } from 'firebase/firestore'
 import * as React from 'react'
-import { useUploadImage } from './useUploadImage'
 import { getFirestoreApp } from './firebase'
 
 type ModelBase = {
   createdAt: Date
   updatedAt?: Date
 }
-type Gallery = ModelBase & {
+export type Gallery = ModelBase & {
   images: Array<string>
 }
 const GalleryConverter: FirestoreDataConverter<Gallery> = {
@@ -33,22 +32,26 @@ const GalleryConverter: FirestoreDataConverter<Gallery> = {
     return {
       images: data.images,
       createdAt: data.createdAt.toDate(),
-      updatedAt: data.updatedAt?.toDate(),
+      updatedAt: data.updatedAt?.toDate() || null,
     }
   },
 }
-export const useGallery = (id?: string) => {
-  const db = getFirestoreApp()
+const db = getFirestoreApp()
 
+export const getGallery = async (id: string) => {
+  const snapshot = await getDoc(doc(db, 'gallery', id).withConverter(GalleryConverter))
+
+  return snapshot.data()
+}
+
+export const useGallery = (id?: string) => {
   const [gallery, setGallery] = React.useState<Gallery | null>()
 
   React.useEffect(() => {
     if (id) {
-      getDoc(doc(db, 'gallery', id).withConverter(GalleryConverter)).then((snapshot) =>
-        setGallery(snapshot.data() || null)
-      )
+      getGallery(id).then((data) => setGallery(data || null))
     }
-  }, [db, id])
+  }, [id])
 
   const actions = React.useMemo(() => {
     const a = {

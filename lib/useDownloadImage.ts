@@ -2,22 +2,25 @@ import { getDownloadURL, ref } from 'firebase/storage'
 import * as React from 'react'
 import { getStorageApp } from './firebase'
 
+const storage = getStorageApp()
+export const getUrl = async (path: string) => {
+  const imageRef = ref(storage, path)
+  const url = await getDownloadURL(imageRef)
+
+  return url
+}
+
 export const useDownloadImage = (paths: Array<string>) => {
   const [images, setImages] = React.useState<Record<string, string>>({})
-  const storage = getStorageApp()
 
-  const download = React.useCallback(
-    async (path: string) => {
-      const imageRef = ref(storage, path)
-      try {
-        const url = await getDownloadURL(imageRef)
-        return url
-      } catch {
-        return null
-      }
-    },
-    [storage]
-  )
+  const download = React.useCallback(async (path: string) => {
+    try {
+      const url = await getUrl(path)
+      return url
+    } catch {
+      return null
+    }
+  }, [])
 
   React.useEffect(() => {
     Promise.all(
