@@ -1,5 +1,6 @@
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
+import { Header } from 'components/Header'
 import { useRouter } from 'next/router'
 import * as React from 'react'
 import { useGallery } from '../lib/useGallery'
@@ -20,12 +21,15 @@ const Home = () => {
   }
 
   return (
-    <Box display="flex" justifyContent="center">
-      <Button component="label" variant="contained">
-        Upload Images
-        <input type="file" multiple hidden onChange={handleUploaded}></input>
-      </Button>
-    </Box>
+    <>
+      <Header />
+      <Box display="flex" justifyContent="center">
+        <Button component="label" variant="contained">
+          Upload Images
+          <input type="file" multiple hidden onChange={handleUploaded}></input>
+        </Button>
+      </Box>
+    </>
   )
 }
 
