@@ -30,6 +30,7 @@ export const useDownloadImage = (paths: Array<string>) => {
         }
       })
     ).then((results) => {
+      console.log('download')
       setImages(
         Object.fromEntries(
           results.filter((item): item is string[] => item.every((e) => e !== null))

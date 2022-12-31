@@ -10,35 +10,25 @@ const Gallery: React.FC<Props> = ({ images }) => {
   const [index, setIndex] = React.useState(0)
 
   return (
-    <Box width="100%" height="100vh" display="flex" alignItems="center" justifyContent="center">
-      <Stack spacing={4} padding={2} alignItems="start" width="100%">
-        <Box
-          position="relative"
-          width="100%"
-          bgcolor="black"
-          color="white"
-          sx={{ aspectRatio: '4/3' }}
-        >
-          <Image src={images[index]} alt={''} fill />
+    <Box width="100%" height="100vh">
+      <Stack spacing={3} padding={2}>
+        <Box position="relative" color="white" width="100%" sx={{ aspectRatio: '1/1' }}>
+          <Image src={images[index]} alt={''} fill style={{ objectFit: 'contain' }} />
         </Box>
 
-        <Box display="flex" width="100%" overflow="auto">
-          <Stack spacing={2} direction="row">
-            {images.map((image, i) => (
-              <Box
-                position="relative"
-                width={100}
-                key={image}
-                bgcolor="black"
-                color="white"
-                onClick={() => setIndex(i)}
-                sx={{ aspectRatio: '4/3' }}
-              >
-                <Image src={image} alt={''} fill />
-              </Box>
-            ))}
-          </Stack>
-        </Box>
+        <Stack spacing={2} direction="row" overflow={'auto'}>
+          {images.map((image, i) => (
+            <Box
+              position="relative"
+              key={image}
+              bgcolor="black"
+              color="white"
+              onClick={() => setIndex(i)}
+            >
+              <Image src={image} alt={''} width={100} height={100} />
+            </Box>
+          ))}
+        </Stack>
       </Stack>
     </Box>
   )
