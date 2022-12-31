@@ -1,24 +1,32 @@
 import Box from '@mui/material/Box'
-import Stack from '@mui/material/Stack'
+import Button from '@mui/material/Button'
+import { useRouter } from 'next/router'
+import * as React from 'react'
+import { useGallery } from '../lib/useGallery'
+import { useUploadImage } from '../lib/useUploadImage'
 
-import EditorSidePanel from '../components/EditorSidebar/EditorSidePanel'
+const Home = () => {
+  const uploadImage = useUploadImage()
+  const [, { create }] = useGallery()
+  const router = useRouter()
 
-import Head from '../components/Head'
+  const handleUploaded = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const images = await uploadImage(e.target.files)
+      const id = await create({ images })
 
-export default function Home() {
+      router.push(`edit/${id}`)
+    }
+  }
+
   return (
-    <>
-      <Head />
-      <Stack direction="row" width="100vw" height="100vh">
-        <Box minWidth="430px">
-          <EditorSidePanel />
-        </Box>
-        <Box component="main" flexGrow={1}>
-          <Box height="100%" p={1} style={{ border: 'grey 5px' }}>
-            <iframe src="/gallery" width="100%" height="100%"></iframe>
-          </Box>
-        </Box>
-      </Stack>
-    </>
+    <Box display="flex" justifyContent="center">
+      <Button component="label" variant="contained">
+        Upload Images
+        <input type="file" multiple hidden onChange={handleUploaded}></input>
+      </Button>
+    </Box>
   )
 }
+
+export default Home

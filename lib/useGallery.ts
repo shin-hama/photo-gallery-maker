@@ -74,7 +74,7 @@ export const useGallery = (id?: string) => {
     }
 
     return a
-  }, [db])
+  }, [])
 
   return [gallery, actions] as const
 }
